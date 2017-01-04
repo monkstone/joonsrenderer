@@ -9,10 +9,12 @@
 /test/tmp/
 /test/version_tmp/
 /tmp/
-
+*~
+*.jar
+target
 # Used by dotenv library to load environment variables.
 # .env
-
+MANIFEST.MF
 ## Specific to RubyMotion:
 .dat*
 .repl_history
