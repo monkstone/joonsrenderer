@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version       = JoonsRenderer::VERSION
   gem.authors       = ['monkstone']
   gem.email         = ['mamba2928@yahoo.co.uk']
-  gem.licenses     = %w(GPL-3.0 LGPL-2.0)
+  gem.licenses     = %w(GPL-3.0)
   gem.description   = %q{A realistic ray tracer for propane and JRubyArt}
   gem.summary       = %q{From Sketch to Ray Traced Image}
   gem.homepage      = 'https://ruby-processing.github.io/propane/'

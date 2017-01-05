@@ -202,17 +202,24 @@ public class JoonsRenderer {
     }
 
     public void fill(String type, float... params) {
-        if ((type == null ? CONSTANT == null : type.equals(CONSTANT)) || (type == null ? DIFFUSE == null : type.equals(DIFFUSE)) || (type == null ? SHINY == null : type.equals(SHINY)) || (type == null ? MIRROR == null : type.equals(MIRROR))
-                || (type == null ? GLASS == null : type.equals(GLASS)) || (type == null ? PHONG == null : type.equals(PHONG)) || (type == null ? AMBIENT_OCCLUSION == null : type.equals(AMBIENT_OCCLUSION)) || (type == null ? LIGHT == null : type.equals(LIGHT))) {
+        switch(type){
+        case(CONSTANT):
+        case(DIFFUSE):
+        case(SHINY):
+        case(PHONG):
+        case(AMBIENT_OCCLUSION):
+        case(LIGHT):
+        case(MIRROR):
             fillers.add(new JRFiller(type, params));
-        } else {
+            break;
+        default:
             if (rendering) {
                 PApplet.println(FILLER_UNKOWN_ERROR);
             }
             FILLERS_ARE_VALID = false;
+            break;
         }
-
-        //First three parameters are always used as RGB. 
+        //First three parameters are always used as RGB.
         //This can be used to give an idea about what the render may look like before render.
         //When showing light shaded objects in processing,
         //the r, g, b is normalized so that the highest value of them
@@ -567,7 +574,7 @@ public class JoonsRenderer {
             JRFiller filler = fillers.get(i);
             if (filler.getType() == null ? SUNSKY == null : filler.getType().equals(SUNSKY)) {
                 // Now, we counted the lights in the previous loop becuase
-                // the Sunsky light in Sunflow doesn't emit photons and we 
+                // the Sunsky light in Sunflow doesn't emit photons and we
                 // must have at least ONE photon emitting light in the scene
                 // or the scene will crash. We can also only have one Sunsky
                 // in our scene, so we'll keep the same light name, which
@@ -679,7 +686,7 @@ public class JoonsRenderer {
     }
 
     private boolean buildFiller(JRFiller temp, int i) {
-        //constant shader		
+        //constant shader
         if (temp.getType() == null ? CONSTANT == null : temp.getType().equals(CONSTANT)) {
             if (temp.np == 3) {
                 api.parameter("color", SRGB_NONLINEAR, temp.p[0] / 255f, temp.p[1] / 255f, temp.p[2] / 255f);

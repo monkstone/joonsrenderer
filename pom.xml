@@ -90,6 +90,16 @@ DO NOT MODIFIY - GENERATED CODE
       <artifactId>gluegen-rt</artifactId>
       <version>${jogl.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.codehaus.janino</groupId>
+      <artifactId>commons-compiler</artifactId>
+      <version>${janino.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.janino</groupId>
+      <artifactId>janino</artifactId>
+      <version>${janino.version}</version>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
@@ -106,8 +116,9 @@ DO NOT MODIFIY - GENERATED CODE
           <version>2.10</version>
           <executions>
             <execution>
-              <id>default-cli</id>
+              <id>maven-dependency-plugin</id>
               <configuration>
+                <goal>copy-dependencies</goal>
                 <artifactItems>
                   <artifactItem>
                     <groupId>org.codehaus.janino</groupId>
