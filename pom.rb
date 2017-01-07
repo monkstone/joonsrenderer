@@ -26,7 +26,6 @@ project 'joonsrenderer' do
   'processing.version' => '3.2.3'
   )
 
-  jar 'org.codehaus.janino:janino:${janino.version}'
   jar 'org.processing:core:${processing.version}'
   jar 'org.jogamp.jogl:jogl-all:${jogl.version}'
   jar 'org.jogamp.gluegen:gluegen-rt:${jogl.version}'
@@ -36,9 +35,8 @@ project 'joonsrenderer' do
   overrides do
     plugin :resources, '2.6'
     plugin :dependency, '2.10' do
-      execute_goals( id: 'maven-dependency-plugin',
-      goal: 'copy-dependencies',
-      artifactItems: [
+      execute_goals( id: 'default-cli',
+        artifactItems:[
         { groupId: 'org.codehaus.janino',
           artifactId: 'janino',
           version: '${janino.version}',

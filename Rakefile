@@ -10,7 +10,7 @@ def create_manifest
   end
 end
 
-task default: [:init, :compile, :gem]
+task default: [:init, :compile, :install, :gem]
 
 desc 'Create Manifest'
 task :init do
@@ -18,13 +18,18 @@ task :init do
 end
 
 desc 'Build gem'
-task :gem do
+task :gem => [:install, :compile] do
   sh "gem build joonsrenderer.gemspec"
 end
 
 desc 'Compile'
-task :compile do
+task :compile => [:init] do
   sh "mvn package"
+end
+
+desc 'Install'
+task :install do
+  sh "mvn dependency:copy"
   sh "mv target/joonsrenderer.jar lib"
 end
 
