@@ -8,7 +8,7 @@ Sunflow is an open source global illumination rendering system written in Java w
 
 ### test.rb (JRubyArt Sketch)
 ```ruby
-load_library :joonsrenderer
+require 'joonsrenderer'
 include_package 'joons'
 
 attr_reader :jr, :eye, :center, :up, :count, :radius, :file_name
