@@ -62,7 +62,7 @@ png2yuv -j Animation_%0.3d.png -f 25 -I p -b 1 > tmp.yuv # zip it all up
 ffmpeg2theora --optimize --videobitrate 16778 -o Animation.ogv tmp.yuv # convert
 ```
 
-<video src="/assets/Animation.ogv" poster="/assets/Animation.png" width="800" height="600" controls preload></video>
+<video src="{{site.github.url}}/assets/Animation.ogv" poster="{{site.github.url}}/assets/Animation.png" width="800" height="600" controls preload></video>
 
 
  [fpsunflower]:http://sunflow.sourceforge.net/
