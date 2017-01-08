@@ -2,7 +2,7 @@ require 'fileutils'
 project 'joonsrenderer' do
 
   model_version '4.0.0'
-  id 'joons:joonsrenderer:1.1-SNAPSHOT'
+  id 'joons:joonsrenderer:1.1.1'
   packaging 'jar'
   description 'joonsrenderer for propane and JRubyArt'
   organization 'ruby-processing', 'https://ruby-processing.github.io'

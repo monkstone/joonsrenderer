@@ -210,6 +210,7 @@ public class JoonsRenderer {
         case(AMBIENT_OCCLUSION):
         case(LIGHT):
         case(MIRROR):
+        case(GLASS):
             fillers.add(new JRFiller(type, params));
             break;
         default:
