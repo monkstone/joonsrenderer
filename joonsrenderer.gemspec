@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.licenses     = %w(GPL-3.0)
   gem.description   = %q{A realistic ray tracer for propane and JRubyArt}
   gem.summary       = %q{From Sketch to Ray Traced Image}
-  gem.homepage      = 'https://ruby-processing.github.io/propane/'
+  gem.homepage      = 'https://ruby-processing.github.io/joonsrenderer/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/joonsrenderer.jar'
   gem.files << 'lib/janino-3.0.6.jar'
