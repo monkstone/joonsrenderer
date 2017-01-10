@@ -1,24 +1,24 @@
 package joons;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.sunflow.util.FloatArray;
+import org.sunflow.util.IntArray;
 
 public class JRFiller {
 
-    private final List<Float> vertices;
-    private final List<Integer> triangleIndices;
-    private final List<Float> spheres;
-    private final List<Float> points;
+    private final FloatArray vertices;
+    private final IntArray triangleIndices;
+    private final FloatArray spheres;
+    private final FloatArray points;
 
     private final String fillType;
     public float[] p; //array of parameters
     public int np = 0; //number of parameters
 
     public JRFiller(String fillType, float... params) {
-        vertices = new ArrayList<>();
-        triangleIndices = new ArrayList<>();
-        spheres = new ArrayList<>();
-        points = new ArrayList<>();
+        vertices = new FloatArray();
+        triangleIndices = new IntArray();
+        spheres = new FloatArray();
+        points = new FloatArray();
 
         this.fillType = fillType;
         p = params;
@@ -29,12 +29,12 @@ public class JRFiller {
         return fillType;
     }
 
-    public List<Float> getVertices() {
+    public FloatArray getVertices() {
         return vertices;
     }
 
     private void writeTriangleIndices() {
-        for (int i = 0; i < (vertices.size() / 9); i++) {
+        for (int i = 0; i < (vertices.getSize() / 9); i++) {
             //vertices/3 = number of 3d points
             //vertices/9 = number of triangles
             triangleIndices.add(i * 3);
@@ -44,20 +44,12 @@ public class JRFiller {
     }
 
     public float[] verticesToArray() {
-        float[] v = new float[vertices.size()];
-        for (int i = 0; i < vertices.size(); i++) {
-            v[i] = vertices.get(i);
-        }
-        return v;
+        return vertices.trim();
     }
 
     public int[] triangleIndicesToArray() {
         writeTriangleIndices();
-        int[] t = new int[triangleIndices.size()];
-        for (int i = 0; i < triangleIndices.size(); i++) {
-            t[i] = triangleIndices.get(i);
-        }
-        return t;
+        return triangleIndices.trim();
     }
 
     public void addSphere(float x, float y, float z, float r) {
@@ -67,7 +59,7 @@ public class JRFiller {
         spheres.add(r);
     }
 
-    public List<Float> getSpheres() {
+    public FloatArray getSpheres() {
         return spheres;
     }
 

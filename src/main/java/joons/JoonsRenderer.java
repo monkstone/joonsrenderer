@@ -1,6 +1,6 @@
 package joons;
 
-import java.util.List;
+import org.sunflow.util.FloatArray;
 
 import org.sunflow.SunflowAPI;
 import org.sunflow.math.Matrix4;
@@ -662,8 +662,8 @@ public class JoonsRenderer {
         }
 
         //light spheres
-        List<Float> spheres = temp.getSpheres();
-        int noOfSpheres = (int) spheres.size() / 4;
+        FloatArray spheres = temp.getSpheres();
+        int noOfSpheres = (int) spheres.getSize() / 4;
 
         for (int j = 0; j < noOfSpheres; j++) {
             float x = spheres.get(j * 4);
@@ -802,8 +802,8 @@ public class JoonsRenderer {
         api.instance("Object_" + i + ".instance", "Object_" + i);
 
         //render the respective spheres
-        List<Float> spheres = temp.getSpheres();
-        int noOfSpheres = spheres.size() / 4;
+        FloatArray spheres = temp.getSpheres();
+        int noOfSpheres = spheres.getSize() / 4;
 
         for (int j = 0; j < noOfSpheres; j++) {
             float x = spheres.get(j * 4);
