@@ -1,3 +1,4 @@
+**v1.1.2** Use sunflow.util.FloatList and IntList, netbeans profiling suggest it is worth doing (there is a vanilla processing alternative, with a different interface)
 
 **v1.1.1** Left out GLASS from fill type switch easily fixed thought
 

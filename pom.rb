@@ -2,11 +2,11 @@ require 'fileutils'
 project 'joonsrenderer' do
 
   model_version '4.0.0'
-  id 'joons:joonsrenderer:1.1.1'
+  id 'joons:joonsrenderer:1.1.2'
   packaging 'jar'
   description 'joonsrenderer for propane and JRubyArt'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
-  { 'fpsunflower' => 'Christopher Kulla', 'geneome' => 'Not Known', 'joonhyublee' => 'Joon Hyub Lee', 'monkstone' => 'Martin Prout' }.each do |key, value|
+  { 'fpsunflower' => 'Christopher Kulla', 'geneome' => 'Eugene Reilly', 'joonhyublee' => 'Joon Hyub Lee', 'monkstone' => 'Martin Prout' }.each do |key, value|
     developer key do
       name value
       roles 'developer'
