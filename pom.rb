@@ -2,7 +2,7 @@ require 'fileutils'
 project 'joonsrenderer' do
 
   model_version '4.0.0'
-  id 'joons:joonsrenderer:1.1.2'
+  id 'joons:joonsrenderer:1.1.3'
   packaging 'jar'
   description 'joonsrenderer for propane and JRubyArt'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
@@ -23,7 +23,7 @@ project 'joonsrenderer' do
   'maven.compiler.target' => '1.8',
   'janino.version' => '3.0.6',
   'jogl.version' => '2.3.2',
-  'processing.version' => '3.2.3'
+  'processing.version' => '3.3.4'
   )
 
   jar 'org.processing:core:${processing.version}'
