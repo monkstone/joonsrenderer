@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 import joons.JoonsRenderer;
 
-@SuppressWarnings("serial")
+
 public class a_maintest extends PApplet {
 
     JoonsRenderer jr;
@@ -21,12 +21,10 @@ public class a_maintest extends PApplet {
     float zNear = 5;
     float zFar = 10000;
 
-    @Override
     public void settings() {
         size(800, 600, P3D);
     }
 
-    @Override
     public void setup() {
 
         jr = new JoonsRenderer(this);
@@ -38,7 +36,6 @@ public class a_maintest extends PApplet {
         //jr.setDOF(170, 5); //Set depth of field of camera, (focus distance, lens radius). Larger radius => more blurry.
     }
 
-    @Override
     public void draw() {
         jr.beginRecord(); //Make sure to include methods you want rendered.
         camera(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ);
@@ -116,7 +113,6 @@ public class a_maintest extends PApplet {
     /**
      * Press 'r' key to start rendering.
      */
-    @Override
     public void keyPressed() {
         if (key == 'r' || key == 'R') {
             jr.render(); 
