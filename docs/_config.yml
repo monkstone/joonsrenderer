@@ -18,3 +18,6 @@ syntax-highlighting:
   enabled: true
 # Build settings
 markdown: kramdown
+gems:
+  - jekyll-feed
+  - jekyll-seo-tag
