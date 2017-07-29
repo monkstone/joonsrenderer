@@ -23,7 +23,7 @@ project 'joonsrenderer' do
   'maven.compiler.target' => '1.8',
   'janino.version' => '3.0.6',
   'jogl.version' => '2.3.2',
-  'processing.version' => '3.3.4'
+  'processing.version' => '3.3.5'
   )
 
   jar 'org.processing:core:${processing.version}'
