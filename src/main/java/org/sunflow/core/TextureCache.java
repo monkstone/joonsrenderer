@@ -11,7 +11,7 @@ import org.sunflow.system.UI.Module;
  */
 public final class TextureCache {
 
-    private static HashMap<String, Texture> textures = new HashMap<String, Texture>();
+    private static final HashMap<String, Texture> textures = new HashMap<>();
 
     private TextureCache() {
     }

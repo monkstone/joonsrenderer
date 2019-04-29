@@ -95,11 +95,12 @@ public final class Ray {
     }
 
     /**
-     * Create a new ray by transforming the supplied one by the given matrix. If
-     * the matrix is
-     * <code>null</code>, the original ray is returned.
+     * Create a new ray by transforming the supplied one by the given matrix.If
+ the matrix is
+    <code>null</code>, the original ray is returned.
      *
      * @param m matrix to transform the ray by
+     * @return 
      */
     public Ray transform(Matrix4 m) {
         if (m == null) {

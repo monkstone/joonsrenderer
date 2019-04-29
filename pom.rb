@@ -23,7 +23,7 @@ project 'joonsrenderer' do
   'maven.compiler.target' => '1.8',
   'janino.version' => '3.0.12',
   'jogl.version' => '2.3.2',
-  'processing.version' => '3.3.5'
+  'processing.version' => '3.3.7'
   )
 
   jar 'org.processing:core:${processing.version}'
@@ -53,7 +53,7 @@ project 'joonsrenderer' do
       )
     end
 
-    plugin( :compiler, '3.6.0',
+    plugin( :compiler, '3.8.0',
     source: '${maven.compiler.source}',
     target: '${maven.compiler.target}'
     )

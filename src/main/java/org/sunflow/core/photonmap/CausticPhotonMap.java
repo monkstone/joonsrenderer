@@ -267,7 +267,7 @@ public final class CausticPhotonMap implements CausticPhotonMapInterface {
 
         int found;
         float px, py, pz;
-        private int max;
+        private final int max;
         private boolean gotHeap;
         protected float[] dist2;
         protected Photon[] index;

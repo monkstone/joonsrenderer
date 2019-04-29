@@ -6,7 +6,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -346,14 +345,20 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                         if (i > args.length - 2) {
                             usage(false);
                         }   String baketype = args[i + 1];
-                        if (baketype.equals("view")) {
+                    switch (baketype) {
+                        case "view":
                             bakeViewdep = true;
-                        } else if (baketype.equals("ortho")) {
+                            break;
+                        case "ortho":
                             bakeViewdep = false;
-                        } else {
+                            break;
+                        default:
                             usage(false);
-                        }   i += 2;
+                            break;
+                    }
+i += 2;
                         break;
+
                     case "-filter":
                         if (i > args.length - 2) {
                             usage(false);

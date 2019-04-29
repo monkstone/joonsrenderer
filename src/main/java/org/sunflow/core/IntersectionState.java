@@ -36,9 +36,9 @@ public final class IntersectionState {
      * Initializes all traversal stacks.
      */
     public IntersectionState() {
-        for (int i = 0; i < stacks.length; i++) {
-            for (int j = 0; j < stacks[i].length; j++) {
-                stacks[i][j] = new StackNode();
+        for (StackNode[] stack : stacks) {
+            for (int j = 0; j < stack.length; j++) {
+                stack[j] = new StackNode();
             }
         }
     }
@@ -102,13 +102,14 @@ public final class IntersectionState {
     }
 
     /**
-     * Record an intersection with the specified primitive id. The parent object
-     * is assumed to be the current instance. The u and v parameters are used to
-     * pinpoint the location on the surface if needed.
+     * Record an intersection with the specified primitive id.The parent object
+ is assumed to be the current instance. The u and v parameters are used to
+ pinpoint the location on the surface if needed.
      *
      * @param id primitive id of the intersected object
      * @param u u surface paramater of the intersection point
      * @param v v surface parameter of the intersection point
+     * @param w
      */
     public final void setIntersection(int id, float u, float v, float w) {
         instance = current;

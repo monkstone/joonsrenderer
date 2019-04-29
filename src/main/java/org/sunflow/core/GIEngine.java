@@ -21,8 +21,10 @@ public interface GIEngine {
     public Color getGlobalRadiance(ShadingState state);
 
     /**
-     * Initialize the engine. This is called before rendering begins.
+     * Initialize the engine.This is called before rendering begins.
      *
+     * @param options
+     * @param scene
      * @return <code>true</code> if the init phase succeeded, <code>false</code>
      * otherwise
      */

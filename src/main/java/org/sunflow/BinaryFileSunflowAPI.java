@@ -12,7 +12,7 @@ import org.sunflow.math.Matrix4;
 
 class BinaryFileSunflowAPI extends FileSunflowAPI {
 
-    private DataOutputStream stream;
+    private final DataOutputStream stream;
 
     BinaryFileSunflowAPI(String filename) throws FileNotFoundException {
         stream = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filename)));

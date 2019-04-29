@@ -10,8 +10,11 @@ public interface ImageSampler {
     /**
      * Prepare the sampler for rendering an image of w x h pixels
      *
+     * @param options
+     * @param scene
      * @param w width of the image
      * @param h height of the image
+     * @return 
      */
     public boolean prepare(Options options, Scene scene, int w, int h);
 

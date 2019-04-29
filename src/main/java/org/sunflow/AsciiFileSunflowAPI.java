@@ -12,7 +12,7 @@ import org.sunflow.math.Matrix4;
 
 class AsciiFileSunflowAPI extends FileSunflowAPI {
 
-    private OutputStream stream;
+    private final OutputStream stream;
 
     AsciiFileSunflowAPI(String filename) throws IOException {
         stream = new BufferedOutputStream(new FileOutputStream(filename));
