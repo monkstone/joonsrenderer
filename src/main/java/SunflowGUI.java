@@ -1,10 +1,10 @@
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
@@ -40,6 +40,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.plaf.metal.DefaultMetalTheme;
 import javax.swing.plaf.metal.MetalLookAndFeel;
@@ -198,196 +199,210 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
             String translateFilename = null;
             int frameStart = 1, frameStop = 1;
             while (i < args.length) {
-                if (args[i].equals("-o")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    filename = args[i + 1];
-                    i += 2;
-                } else if (args[i].equals("-nogui")) {
-                    showFrame = false;
-                    i++;
-                } else if (args[i].equals("-ipr")) {
-                    sampler = "ipr";
-                    i++;
-                } else if (args[i].equals("-threads")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    threads = Integer.parseInt(args[i + 1]);
-                    i += 2;
-                } else if (args[i].equals("-lopri")) {
-                    lowPriority = true;
-                    i++;
-                } else if (args[i].equals("-hipri")) {
-                    lowPriority = false;
-                    i++;
-                } else if (args[i].equals("-sampler")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    sampler = args[i + 1];
-                    i += 2;
-                } else if (args[i].equals("-smallmesh")) {
-                    TriangleMesh.setSmallTriangles(true);
-                    i++;
-                } else if (args[i].equals("-dumpkd")) {
-                    KDTree.setDumpMode(true, "kdtree");
-                    i++;
-                } else if (args[i].equals("-buildonly")) {
-                    noRender = true;
-                    i++;
-                } else if (args[i].equals("-showaa")) {
-                    showAA = true;
-                    i++;
-                } else if (args[i].equals("-nogi")) {
-                    noGI = true;
-                    i++;
-                } else if (args[i].equals("-nocaustics")) {
-                    noCaustics = true;
-                    i++;
-                } else if (args[i].equals("-pathgi")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    pathGI = Integer.parseInt(args[i + 1]);
-                    i += 2;
-                } else if (args[i].equals("-quick_ambocc")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    maxDist = Float.parseFloat(args[i + 1]);
-                    shaderOverride = "ambient_occlusion"; // new
-                    // AmbientOcclusionShader(Color.WHITE,
-                    // d);
-                    i += 2;
-                } else if (args[i].equals("-quick_uvs")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "show_uvs";
-                    i++;
-                } else if (args[i].equals("-quick_normals")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "show_normals";
-                    i++;
-                } else if (args[i].equals("-quick_id")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "show_instance_id";
-                    i++;
-                } else if (args[i].equals("-quick_prims")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "show_primitive_id";
-                    i++;
-                } else if (args[i].equals("-quick_gray")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "quick_gray";
-                    i++;
-                } else if (args[i].equals("-quick_wire")) {
-                    if (i > args.length - 1) {
-                        usage(false);
-                    }
-                    shaderOverride = "wireframe";
-                    i++;
-                } else if (args[i].equals("-resolution")) {
-                    if (i > args.length - 3) {
-                        usage(false);
-                    }
-                    resolutionW = Integer.parseInt(args[i + 1]);
-                    resolutionH = Integer.parseInt(args[i + 2]);
-                    i += 3;
-                } else if (args[i].equals("-aa")) {
-                    if (i > args.length - 3) {
-                        usage(false);
-                    }
-                    aaMin = Integer.parseInt(args[i + 1]);
-                    aaMax = Integer.parseInt(args[i + 2]);
-                    i += 3;
-                } else if (args[i].equals("-samples")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    samples = Integer.parseInt(args[i + 1]);
-                    i += 2;
-                } else if (args[i].equals("-bucket")) {
-                    if (i > args.length - 3) {
-                        usage(false);
-                    }
-                    bucketSize = Integer.parseInt(args[i + 1]);
-                    bucketOrder = args[i + 2];
-                    i += 3;
-                } else if (args[i].equals("-bake")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    bakingName = args[i + 1];
-                    i += 2;
-                } else if (args[i].equals("-bakedir")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    String baketype = args[i + 1];
-                    if (baketype.equals("view")) {
-                        bakeViewdep = true;
-                    } else if (baketype.equals("ortho")) {
-                        bakeViewdep = false;
-                    } else {
-                        usage(false);
-                    }
-                    i += 2;
-                } else if (args[i].equals("-filter")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    filterType = args[i + 1];
-                    i += 2;
-                } else if (args[i].equals("-bench")) {
-                    runBenchmark = true;
-                    i++;
-                } else if (args[i].equals("-rtbench")) {
-                    runRTBenchmark = true;
-                    i++;
-                } else if (args[i].equals("-frame")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    frameStart = frameStop = Integer.parseInt(args[i + 1]);
-                    i += 2;
-                } else if (args[i].equals("-anim")) {
-                    if (i > args.length - 3) {
-                        usage(false);
-                    }
-                    frameStart = Integer.parseInt(args[i + 1]);
-                    frameStop = Integer.parseInt(args[i + 2]);
-                    i += 3;
-                } else if (args[i].equals("-v")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    UI.verbosity(Integer.parseInt(args[i + 1]));
-                    i += 2;
-                } else if (args[i].equals("-translate")) {
-                    if (i > args.length - 2) {
-                        usage(false);
-                    }
-                    translateFilename = args[i + 1];
-                    i += 2;
-                } else if (args[i].equals("-h") || args[i].equals("-help")) {
-                    usage(true);
-                } else {
-                    if (input != null) {
-                        usage(false);
-                    }
-                    input = args[i];
-                    i++;
+                switch (args[i]) {
+                    case "-o":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   filename = args[i + 1];
+                        i += 2;
+                        break;
+                    case "-nogui":
+                        showFrame = false;
+                        i++;
+                        break;
+                    case "-ipr":
+                        sampler = "ipr";
+                        i++;
+                        break;
+                    case "-threads":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   threads = Integer.parseInt(args[i + 1]);
+                        i += 2;
+                        break;
+                    case "-lopri":
+                        lowPriority = true;
+                        i++;
+                        break;
+                    case "-hipri":
+                        lowPriority = false;
+                        i++;
+                        break;
+                    case "-sampler":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   sampler = args[i + 1];
+                        i += 2;
+                        break;
+                    case "-smallmesh":
+                        TriangleMesh.setSmallTriangles(true);
+                        i++;
+                        break;
+                    case "-dumpkd":
+                        KDTree.setDumpMode(true, "kdtree");
+                        i++;
+                        break;
+                    case "-buildonly":
+                        noRender = true;
+                        i++;
+                        break;
+                    case "-showaa":
+                        showAA = true;
+                        i++;
+                        break;
+                    case "-nogi":
+                        noGI = true;
+                        i++;
+                        break;
+                    case "-nocaustics":
+                        noCaustics = true;
+                        i++;
+                        break;
+                    case "-pathgi":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   pathGI = Integer.parseInt(args[i + 1]);
+                        i += 2;
+                        break;
+                    case "-quick_ambocc":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   maxDist = Float.parseFloat(args[i + 1]);
+                        shaderOverride = "ambient_occlusion"; // new
+                        // AmbientOcclusionShader(Color.WHITE,
+                        // d);
+                        i += 2;
+                        break;
+                    case "-quick_uvs":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "show_uvs";
+                        i++;
+                        break;
+                    case "-quick_normals":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "show_normals";
+                        i++;
+                        break;
+                    case "-quick_id":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "show_instance_id";
+                        i++;
+                        break;
+                    case "-quick_prims":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "show_primitive_id";
+                        i++;
+                        break;
+                    case "-quick_gray":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "quick_gray";
+                        i++;
+                        break;
+                    case "-quick_wire":
+                        if (i > args.length - 1) {
+                            usage(false);
+                        }   shaderOverride = "wireframe";
+                        i++;
+                        break;
+                    case "-resolution":
+                        if (i > args.length - 3) {
+                            usage(false);
+                        }   resolutionW = Integer.parseInt(args[i + 1]);
+                        resolutionH = Integer.parseInt(args[i + 2]);
+                        i += 3;
+                        break;
+                    case "-aa":
+                        if (i > args.length - 3) {
+                            usage(false);
+                        }   aaMin = Integer.parseInt(args[i + 1]);
+                        aaMax = Integer.parseInt(args[i + 2]);
+                        i += 3;
+                        break;
+                    case "-samples":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   samples = Integer.parseInt(args[i + 1]);
+                        i += 2;
+                        break;
+                    case "-bucket":
+                        if (i > args.length - 3) {
+                            usage(false);
+                        }   bucketSize = Integer.parseInt(args[i + 1]);
+                        bucketOrder = args[i + 2];
+                        i += 3;
+                        break;
+                    case "-bake":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   bakingName = args[i + 1];
+                        i += 2;
+                        break;
+                    case "-bakedir":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   String baketype = args[i + 1];
+                        if (baketype.equals("view")) {
+                            bakeViewdep = true;
+                        } else if (baketype.equals("ortho")) {
+                            bakeViewdep = false;
+                        } else {
+                            usage(false);
+                        }   i += 2;
+                        break;
+                    case "-filter":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   filterType = args[i + 1];
+                        i += 2;
+                        break;
+                    case "-bench":
+                        runBenchmark = true;
+                        i++;
+                        break;
+                    case "-rtbench":
+                        runRTBenchmark = true;
+                        i++;
+                        break;
+                    case "-frame":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   frameStart = frameStop = Integer.parseInt(args[i + 1]);
+                        i += 2;
+                        break;
+                    case "-anim":
+                        if (i > args.length - 3) {
+                            usage(false);
+                        }   frameStart = Integer.parseInt(args[i + 1]);
+                        frameStop = Integer.parseInt(args[i + 2]);
+                        i += 3;
+                        break;
+                    case "-v":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   UI.verbosity(Integer.parseInt(args[i + 1]));
+                        i += 2;
+                        break;
+                    case "-translate":
+                        if (i > args.length - 2) {
+                            usage(false);
+                        }   translateFilename = args[i + 1];
+                        i += 2;
+                        break;
+                    case "-h":
+                    case "-help":
+                        usage(true);
+                        break;
+                    default:
+                        if (input != null) {
+                            usage(false);
+                        }   input = args[i];
+                        i++;
+                        break;
                 }
             }
             if (runBenchmark) {
@@ -495,7 +510,7 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                         break;
                     }
                 }
-            } catch (Exception e) {
+            } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
                 // If Nimbus is not available, you can set the GUI to another look and feel.
                 MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
             }
@@ -548,22 +563,16 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                         renderButton = new JButton();
                         jPanel1.add(renderButton);
                         renderButton.setText("Render");
-                        renderButton.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent evt) {
-                                renderMenuItemActionPerformed(evt);
-                            }
+                        renderButton.addActionListener((ActionEvent evt) -> {
+                            renderMenuItemActionPerformed(evt);
                         });
                     }
                     {
                         iprButton = new JButton();
                         jPanel1.add(iprButton);
                         iprButton.setText("IPR");
-                        iprButton.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent evt) {
-                                iprMenuItemActionPerformed(evt);
-                            }
+                        iprButton.addActionListener((ActionEvent evt) -> {
+                            iprMenuItemActionPerformed(evt);
                         });
                     }
                 }
@@ -608,11 +617,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                         buildButton = new JButton();
                         jPanel3.add(buildButton);
                         buildButton.setText("Build Scene");
-                        buildButton.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent evt) {
-                                buildMenuItemActionPerformed(evt);
-                            }
+                        buildButton.addActionListener((ActionEvent evt) -> {
+                            buildMenuItemActionPerformed(evt);
                         });
                     }
                 }
@@ -669,22 +675,16 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                             jPanel5.add(taskCancelButton);
                             taskCancelButton.setText("Cancel");
                             taskCancelButton.setEnabled(false);
-                            taskCancelButton.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent evt) {
-                                    UI.taskCancel();
-                                }
+                            taskCancelButton.addActionListener((ActionEvent evt) -> {
+                                UI.taskCancel();
                             });
                         }
                         {
                             clearConsoleButton = new JButton();
                             jPanel5.add(clearConsoleButton);
                             clearConsoleButton.setText("Clear");
-                            clearConsoleButton.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent evt) {
-                                    clearConsole();
-                                }
+                            clearConsoleButton.addActionListener((ActionEvent evt) -> {
+                                clearConsole();
                             });
                         }
                     }
@@ -705,11 +705,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     fileMenu.add(newFileMenuItem);
                     newFileMenuItem.setText("New");
                     newFileMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl N"));
-                    newFileMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            newFileMenuItemActionPerformed(evt);
-                        }
+                    newFileMenuItem.addActionListener((ActionEvent evt) -> {
+                        newFileMenuItemActionPerformed(evt);
                     });
                 }
                 {
@@ -717,11 +714,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     fileMenu.add(openFileMenuItem);
                     openFileMenuItem.setText("Open ...");
                     openFileMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl O"));
-                    openFileMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            openFileMenuItemActionPerformed(evt);
-                        }
+                    openFileMenuItem.addActionListener((ActionEvent evt) -> {
+                        openFileMenuItemActionPerformed(evt);
                     });
                 }
                 {
@@ -729,22 +723,16 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     fileMenu.add(saveMenuItem);
                     saveMenuItem.setText("Save");
                     saveMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
-                    saveMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            saveCurrentFile(currentFile);
-                        }
+                    saveMenuItem.addActionListener((ActionEvent evt) -> {
+                        saveCurrentFile(currentFile);
                     });
                 }
                 {
                     saveAsMenuItem = new JMenuItem();
                     fileMenu.add(saveAsMenuItem);
                     saveAsMenuItem.setText("Save As ...");
-                    saveAsMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            saveAsMenuItemActionPerformed(evt);
-                        }
+                    saveAsMenuItem.addActionListener((ActionEvent evt) -> {
+                        saveAsMenuItemActionPerformed(evt);
                     });
                 }
                 {
@@ -755,11 +743,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     exitMenuItem = new JMenuItem();
                     fileMenu.add(exitMenuItem);
                     exitMenuItem.setText("Exit");
-                    exitMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            System.exit(0);
-                        }
+                    exitMenuItem.addActionListener((ActionEvent evt) -> {
+                        System.exit(0);
                     });
                 }
             }
@@ -772,12 +757,9 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     sceneMenu.add(buildMenuItem);
                     buildMenuItem.setText("Build");
                     buildMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl B"));
-                    buildMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            if (sceneMenu.isEnabled()) {
-                                buildMenuItemActionPerformed(evt);
-                            }
+                    buildMenuItem.addActionListener((ActionEvent evt) -> {
+                        if (sceneMenu.isEnabled()) {
+                            buildMenuItemActionPerformed(evt);
                         }
                     });
                 }
@@ -795,22 +777,16 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     renderMenuItem = new JMenuItem();
                     sceneMenu.add(renderMenuItem);
                     renderMenuItem.setText("Render");
-                    renderMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            renderMenuItemActionPerformed(evt);
-                        }
+                    renderMenuItem.addActionListener((ActionEvent evt) -> {
+                        renderMenuItemActionPerformed(evt);
                     });
                 }
                 {
                     iprMenuItem = new JMenuItem();
                     sceneMenu.add(iprMenuItem);
                     iprMenuItem.setText("IPR");
-                    iprMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            iprMenuItemActionPerformed(evt);
-                        }
+                    iprMenuItem.addActionListener((ActionEvent evt) -> {
+                        iprMenuItemActionPerformed(evt);
                     });
                 }
                 {
@@ -828,11 +804,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     textureCacheClearMenuItem = new JMenuItem();
                     sceneMenu.add(textureCacheClearMenuItem);
                     textureCacheClearMenuItem.setText("Clear Texture Cache");
-                    textureCacheClearMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            textureCacheClearMenuItemActionPerformed(evt);
-                        }
+                    textureCacheClearMenuItem.addActionListener((ActionEvent evt) -> {
+                        textureCacheClearMenuItemActionPerformed(evt);
                     });
                 }
                 {
@@ -840,11 +813,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     sceneMenu.add(smallTrianglesMenuItem);
                     smallTrianglesMenuItem.setText("Low Mem Triangles");
                     smallTrianglesMenuItem.setToolTipText("Load future meshes using a low memory footprint triangle representation");
-                    smallTrianglesMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            smallTrianglesMenuItemActionPerformed(evt);
-                        }
+                    smallTrianglesMenuItem.addActionListener((ActionEvent evt) -> {
+                        smallTrianglesMenuItemActionPerformed(evt);
                     });
                 }
             }
@@ -856,22 +826,16 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     resetZoomMenuItem = new JMenuItem();
                     imageMenu.add(resetZoomMenuItem);
                     resetZoomMenuItem.setText("Reset Zoom");
-                    resetZoomMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            imagePanel.reset();
-                        }
+                    resetZoomMenuItem.addActionListener((ActionEvent evt) -> {
+                        imagePanel.reset();
                     });
                 }
                 {
                     fitWindowMenuItem = new JMenuItem();
                     imageMenu.add(fitWindowMenuItem);
                     fitWindowMenuItem.setText("Fit to Window");
-                    fitWindowMenuItem.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            imagePanel.fit();
-                        }
+                    fitWindowMenuItem.addActionListener((ActionEvent evt) -> {
+                        imagePanel.fit();
                     });
                 }
                 {
@@ -882,26 +846,23 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                     jMenuItem4 = new JMenuItem();
                     imageMenu.add(jMenuItem4);
                     jMenuItem4.setText("Save Image ...");
-                    jMenuItem4.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent evt) {
-                            // imagePanel.image;
-                            JFileChooser fc = new JFileChooser(".");
-                            fc.setFileFilter(new FileFilter() {
-                                @Override
-                                public String getDescription() {
-                                    return "Image File";
-                                }
-
-                                @Override
-                                public boolean accept(File f) {
-                                    return (f.isDirectory() || f.getName().endsWith(".png") || f.getName().endsWith(".tga"));
-                                }
-                            });
-                            if (fc.showSaveDialog(SunflowGUI.this) == JFileChooser.APPROVE_OPTION) {
-                                String filename = fc.getSelectedFile().getAbsolutePath();
-                                imagePanel.save(filename);
+                    jMenuItem4.addActionListener((ActionEvent evt) -> {
+                        // imagePanel.image;
+                        JFileChooser fc = new JFileChooser(".");
+                        fc.setFileFilter(new FileFilter() {
+                            @Override
+                            public String getDescription() {
+                                return "Image File";
                             }
+                            
+                            @Override
+                            public boolean accept(File f) {
+                                return (f.isDirectory() || f.getName().endsWith(".png") || f.getName().endsWith(".tga"));
+                            }
+                        });
+                        if (fc.showSaveDialog(SunflowGUI.this) == JFileChooser.APPROVE_OPTION) {
+                            String filename = fc.getSelectedFile().getAbsolutePath();
+                            imagePanel.save(filename);
                         }
                     });
                 }
@@ -916,11 +877,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                 windowMenu.add(imageWindowMenuItem);
                 imageWindowMenuItem.setText("Image");
                 imageWindowMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl 1"));
-                imageWindowMenuItem.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        selectFrame(imagePanelFrame);
-                    }
+                imageWindowMenuItem.addActionListener((ActionEvent evt) -> {
+                    selectFrame(imagePanelFrame);
                 });
             }
             {
@@ -928,11 +886,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                 windowMenu.add(editorWindowMenuItem);
                 editorWindowMenuItem.setText("Script Editor");
                 editorWindowMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl 2"));
-                editorWindowMenuItem.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        selectFrame(editorFrame);
-                    }
+                editorWindowMenuItem.addActionListener((ActionEvent evt) -> {
+                    selectFrame(editorFrame);
                 });
             }
             {
@@ -940,11 +895,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                 windowMenu.add(consoleWindowMenuItem);
                 consoleWindowMenuItem.setText("Console");
                 consoleWindowMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl 3"));
-                consoleWindowMenuItem.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        selectFrame(consoleFrame);
-                    }
+                consoleWindowMenuItem.addActionListener((ActionEvent evt) -> {
+                    selectFrame(consoleFrame);
                 });
             }
             {
@@ -956,11 +908,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                 windowMenu.add(tileWindowMenuItem);
                 tileWindowMenuItem.setText("Tile");
                 tileWindowMenuItem.setAccelerator(KeyStroke.getKeyStroke("ctrl T"));
-                tileWindowMenuItem.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        tileWindowMenuItemActionPerformed(evt);
-                    }
+                tileWindowMenuItem.addActionListener((ActionEvent evt) -> {
+                    tileWindowMenuItemActionPerformed(evt);
                 });
             }
         }
@@ -1045,11 +994,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
     }
 
     private void println(final String s) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                consoleTextArea.append(s + "\n");
-            }
+        SwingUtilities.invokeLater(() -> {
+            consoleTextArea.append(s + "\n");
         });
     }
 
@@ -1079,16 +1025,13 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
         currentTaskLastP = -1;
         final int taskMin = min;
         final int taskMax = max;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                taskProgressBar.setEnabled(true);
-                taskCancelButton.setEnabled(true);
-                taskProgressBar.setMinimum(taskMin);
-                taskProgressBar.setMaximum(taskMax);
-                taskProgressBar.setValue(taskMin);
-                taskProgressBar.setString(currentTask);
-            }
+        SwingUtilities.invokeLater(() -> {
+            taskProgressBar.setEnabled(true);
+            taskCancelButton.setEnabled(true);
+            taskProgressBar.setMinimum(taskMin);
+            taskProgressBar.setMaximum(taskMax);
+            taskProgressBar.setValue(taskMin);
+            taskProgressBar.setString(currentTask);
         });
     }
 
@@ -1096,29 +1039,23 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
     public void taskUpdate(int current) {
         final int taskCurrent = current;
         final String taskString = currentTask;
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                taskProgressBar.setValue(taskCurrent);
-                int p = (int) (100.0 * taskProgressBar.getPercentComplete());
-                if (p > currentTaskLastP) {
-                    taskProgressBar.setString(taskString + " [" + p + "%]");
-                    currentTaskLastP = p;
-                }
+        SwingUtilities.invokeLater(() -> {
+            taskProgressBar.setValue(taskCurrent);
+            int p = (int) (100.0 * taskProgressBar.getPercentComplete());
+            if (p > currentTaskLastP) {
+                taskProgressBar.setString(taskString + " [" + p + "%]");
+                currentTaskLastP = p;
             }
         });
     }
 
     @Override
     public void taskStop() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                taskProgressBar.setValue(taskProgressBar.getMinimum());
-                taskProgressBar.setString("");
-                taskProgressBar.setEnabled(false);
-                taskCancelButton.setEnabled(false);
-            }
+        SwingUtilities.invokeLater(() -> {
+            taskProgressBar.setValue(taskProgressBar.getMinimum());
+            taskProgressBar.setString("");
+            taskProgressBar.setEnabled(false);
+            taskCancelButton.setEnabled(false);
         });
     }
 
@@ -1330,7 +1267,7 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
                         break;
                     }
                 }
-            } catch (Exception exp) {
+            } catch (UnsupportedFlavorException | IOException exp) {
                 Logger.getLogger(SunflowGUI.class.getName()).log(Level.SEVERE, null, exp);
             }
 
@@ -1341,8 +1278,8 @@ public class SunflowGUI extends javax.swing.JFrame implements UserInterface {
         public boolean canImport(JComponent c, DataFlavor[] flavors) {
             // Just a quick check to see if a file can be accepted at this time
             // Are there any files around?
-            for (int i = 0; i < flavors.length; i++) {
-                if (flavors[i].isFlavorJavaFileListType()) {
+            for (DataFlavor flavor : flavors) {
+                if (flavor.isFlavorJavaFileListType()) {
                     return true;
                 }
             }

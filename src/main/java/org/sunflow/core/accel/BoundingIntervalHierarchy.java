@@ -17,7 +17,7 @@ public class BoundingIntervalHierarchy implements AccelerationStructure {
     private int[] objects;
     private PrimitiveList primitives;
     private BoundingBox bounds;
-    private int maxPrims;
+    private final int maxPrims;
 
     public BoundingIntervalHierarchy() {
         maxPrims = 2;

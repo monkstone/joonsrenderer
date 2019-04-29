@@ -15,19 +15,23 @@ public class TGABitmapWriter implements BitmapWriter {
     private int width, height;
     private byte[] data;
 
+    @Override
     public void configure(String option, String value) {
     }
 
+    @Override
     public void openFile(String filename) throws IOException {
         this.filename = filename;
     }
 
+    @Override
     public void writeHeader(int width, int height, int tileSize) throws IOException, UnsupportedOperationException {
         this.width = width;
         this.height = height;
         data = new byte[width * height * 4]; // RGBA8
     }
 
+    @Override
     public void writeTile(int x, int y, int w, int h, Color[] color, float[] alpha) throws IOException {
         color = ColorEncoder.unlinearize(color); // gamma correction
         byte[] tileData = ColorEncoder.quantizeRGBA8(color, alpha);
@@ -43,21 +47,23 @@ public class TGABitmapWriter implements BitmapWriter {
         }
     }
 
+    @Override
     public void closeFile() throws IOException {
-        // actually write the file from here
-        OutputStream f = new BufferedOutputStream(new FileOutputStream(filename));
         // no id, no colormap, uncompressed 32bpp RGBA
-        byte[] tgaHeader = {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-        f.write(tgaHeader);
-        // then the size info
-        f.write(width & 0xFF);
-        f.write((width >> 8) & 0xFF);
-        f.write(height & 0xFF);
-        f.write((height >> 8) & 0xFF);
-        // bitsperpixel and filler
-        f.write(32);
-        f.write(0);
-        f.write(data); // write image data bytes (already in BGRA order)
-        f.close();
+        try ( // actually write the file from here
+                OutputStream f = new BufferedOutputStream(new FileOutputStream(filename))) {
+            // no id, no colormap, uncompressed 32bpp RGBA
+            byte[] tgaHeader = {0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+            f.write(tgaHeader);
+            // then the size info
+            f.write(width & 0xFF);
+            f.write((width >> 8) & 0xFF);
+            f.write(height & 0xFF);
+            f.write((height >> 8) & 0xFF);
+            // bitsperpixel and filler
+            f.write(32);
+            f.write(0);
+            f.write(data); // write image data bytes (already in BGRA order)
+        }
     }
 }

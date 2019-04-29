@@ -8,8 +8,8 @@ import org.sunflow.system.UI.Module;
  */
 public class BenchmarkFramework {
 
-    private Timer[] timers;
-    private int timeLimit; // time limit in seconds
+    private final Timer[] timers;
+    private final int timeLimit; // time limit in seconds
 
     public BenchmarkFramework(int iterations, int timeLimit) {
         this.timeLimit = timeLimit;

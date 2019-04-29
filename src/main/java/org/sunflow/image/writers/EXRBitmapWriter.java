@@ -48,27 +48,36 @@ public class EXRBitmapWriter implements BitmapWriter {
     @Override
     public final void configure(final String option, String value) {
         if (option.equals(COMPRESSION)) {
-            if (value.equals("none")) {
-                compression = NO_COMPRESSION;
-            } else if (value.equals("rle")) {
-                compression = RLE_COMPRESSION;
-            } else if (value.equals("zip")) {
-                compression = ZIP_COMPRESSION;
-            } else {
-                UI.printWarning(Module.IMG, "EXR - Compression type was not recognized - defaulting to zip");
-                compression = ZIP_COMPRESSION;
+            switch (value) {
+                case "none":
+                    compression = NO_COMPRESSION;
+                    break;
+                case "rle":
+                    compression = RLE_COMPRESSION;
+                    break;
+                case "zip":
+                    compression = ZIP_COMPRESSION;
+                    break;
+                default:
+                    UI.printWarning(Module.IMG, "EXR - Compression type was not recognized - defaulting to zip");
+                    compression = ZIP_COMPRESSION;
+                    break;
             }
         } else if (option.equals("channeltype")) {
-            if (value.equals("float")) {
-                channelType = FLOAT;
-                channelSize = FLOAT_SIZE;
-            } else if (value.equals("half")) {
-                channelType = HALF;
-                channelSize = HALF_SIZE;
-            } else {
-                UI.printWarning(Module.DISP, "EXR - Channel type was not recognized - defaulting to float");
-                channelType = FLOAT;
-                channelSize = FLOAT_SIZE;
+            switch (value) {
+                case "float":
+                    channelType = FLOAT;
+                    channelSize = FLOAT_SIZE;
+                    break;
+                case "half":
+                    channelType = HALF;
+                    channelSize = HALF_SIZE;
+                    break;
+                default:
+                    UI.printWarning(Module.DISP, "EXR - Channel type was not recognized - defaulting to float");
+                    channelType = FLOAT;
+                    channelSize = FLOAT_SIZE;
+                    break;
             }
         }
     }

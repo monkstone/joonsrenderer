@@ -64,6 +64,7 @@ public class RenderGlobalsPanel extends JTabbedPane {
 
     /**
      * Auto-generated main method to display this JPanel inside a new JFrame.
+     * @param args
      */
     public static void main(String[] args) {
         JFrame frame = new JFrame();
@@ -181,9 +182,9 @@ public class RenderGlobalsPanel extends JTabbedPane {
                             jLabel5.setText("Min:");
                         }
                         {
-                            ComboBoxModel<String> minSamplingComboBoxModel = new DefaultComboBoxModel<String>(new String[]{
+                            ComboBoxModel<String> minSamplingComboBoxModel = new DefaultComboBoxModel<>(new String[]{
                                 "Item One", "Item Two"});
-                            minSamplingComboBox = new JComboBox<String>();
+                            minSamplingComboBox = new JComboBox<>();
                             samplingPanel.add(minSamplingComboBox);
                             minSamplingComboBox.setModel(minSamplingComboBoxModel);
                         }
@@ -193,9 +194,9 @@ public class RenderGlobalsPanel extends JTabbedPane {
                             jLabel6.setText("Max:");
                         }
                         {
-                            ComboBoxModel<String> maxSamplingComboxBoxModel = new DefaultComboBoxModel<String>(new String[]{
+                            ComboBoxModel<String> maxSamplingComboxBoxModel = new DefaultComboBoxModel<>(new String[]{
                                 "Item One", "Item Two"});
-                            maxSamplingComboxBox = new JComboBox<String>();
+                            maxSamplingComboxBox = new JComboBox<>();
                             samplingPanel.add(maxSamplingComboxBox);
                             maxSamplingComboxBox.setModel(maxSamplingComboxBoxModel);
                         }

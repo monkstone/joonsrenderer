@@ -14,17 +14,21 @@ public class PNGBitmapWriter implements BitmapWriter {
     private String filename;
     private BufferedImage image;
 
+    @Override
     public void configure(String option, String value) {
     }
 
+    @Override
     public void openFile(String filename) throws IOException {
         this.filename = filename;
     }
 
+    @Override
     public void writeHeader(int width, int height, int tileSize) throws IOException, UnsupportedOperationException {
         image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
+    @Override
     public void writeTile(int x, int y, int w, int h, Color[] color, float[] alpha) throws IOException {
         for (int j = 0, index = 0; j < h; j++) {
             for (int i = 0; i < w; i++, index++) {
@@ -33,6 +37,7 @@ public class PNGBitmapWriter implements BitmapWriter {
         }
     }
 
+    @Override
     public void closeFile() throws IOException {
         ImageIO.write(image, "png", new File(filename));
     }
