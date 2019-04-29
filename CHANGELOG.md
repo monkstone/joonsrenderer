@@ -1,4 +1,6 @@
-**v1.1.3** Bump for processing-3.3.4 
+**v1.2.0** Bump for janino-3.0.12, plus some refactoring
+
+**v1.1.3** Bump for processing-3.3.4
 
 **v1.1.2** Use sunflow.util.FloatList and IntList, netbeans profiling suggest it is worth doing (there is a vanilla processing alternative, with a different interface)  
 
