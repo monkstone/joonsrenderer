@@ -6,7 +6,7 @@ def create_manifest
   file = File.open('MANIFEST.MF', 'w') do |f|
     f.puts(title)
     f.puts(version)
-    f.puts('Class-Path: janino-3.0.6.jar commons-compiler-3.0.6.jar')
+    f.puts('Class-Path: janino-3.0.12.jar commons-compiler-3.0.12.jar')
   end
 end
 
