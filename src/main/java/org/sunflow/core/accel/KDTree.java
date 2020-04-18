@@ -471,7 +471,7 @@ public class KDTree implements AccelerationStructure {
                 // current plane
                 int pClosed = 0, pPlanar = 0, pOpened = 0;
                 long ptrMasked = ptr & (~TYPE_MASK & 0xFFFFFFFFF0000000L);
-                long ptrClosed = ptrMasked | CLOSED;
+                long ptrClosed = ptrMasked;
                 long ptrPlanar = ptrMasked | PLANAR;
                 long ptrOpened = ptrMasked | OPENED;
                 while (i < nSplits && (splits[i] & 0xFFFFFFFFF0000000L) == ptrClosed) {

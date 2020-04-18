@@ -15,7 +15,7 @@ import org.sunflow.system.UI.Module;
  */
 public class Geometry implements RenderObject {
 
-    private Tesselatable tesselatable;
+    private final Tesselatable tesselatable;
     private PrimitiveList primitives;
     private AccelerationStructure accel;
     private int builtAccel;

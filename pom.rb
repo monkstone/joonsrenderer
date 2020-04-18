@@ -2,7 +2,7 @@ require 'fileutils'
 project 'joonsrenderer' do
 
   model_version '4.0.0'
-  id 'joons:joonsrenderer:1.2.0'
+  id 'joons:joonsrenderer:1.3.0'
   packaging 'jar'
   description 'joonsrenderer for propane and JRubyArt'
   organization 'ruby-processing', 'https://ruby-processing.github.io'
@@ -21,7 +21,7 @@ project 'joonsrenderer' do
   'maven.compiler.source' => '1.8',
   'project.build.sourceEncoding' => 'utf-8',
   'maven.compiler.target' => '1.8',
-  'janino.version' => '3.0.12',
+  'janino.version' => '3.1.2',
   'jogl.version' => '2.3.2',
   'processing.version' => '3.3.7'
   )
@@ -33,8 +33,8 @@ project 'joonsrenderer' do
   jar('org.codehaus.janino:janino:${janino.version}')
 
   overrides do
-    plugin :resources, '2.6'
-    plugin :dependency, '2.10' do
+    plugin :resources, '3.1.0'
+    plugin :dependency, '3.1.2' do
       execute_goals( id: 'default-cli',
         artifactItems:[
         { groupId: 'org.codehaus.janino',
@@ -52,24 +52,24 @@ project 'joonsrenderer' do
       ]
       )
     end
-
-    plugin( :compiler, '3.8.0',
-    source: '${maven.compiler.source}',
-    target: '${maven.compiler.target}'
-    )
-    plugin( :javadoc, '2.10.4',
-    detect_offline_links:  'false',
-    )
-    plugin( :jar, '3.0.2',
-    'archive' => {
-      'manifestFile' =>  'MANIFEST.MF'
-    }
-    )
+    plugin(:compiler, '3.8.1',
+           'release' => '11')
+    plugin(:javadoc, '2.10.4',
+           'detectOfflineLinks' => 'false',
+           'links' => ['${processing.api}',
+                       '${jruby.api}'])
+    plugin(:jar, '3.2.0',
+      'archive' => {
+        'manifestFile' =>  'MANIFEST.MF'
+      })
+    plugin :jdeps, '3.1.2' do
+      execute_goals 'jdkinternals', 'test-jdkinternals'
+    end
   end
 
   build do
     default_goal 'package'
-    source_directory 'src'
+    source_directory '${source.directory}/main/java'
     final_name 'joonsrenderer'
   end
 end

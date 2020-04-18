@@ -68,9 +68,9 @@ public class SunflowAPI implements SunflowAPIInterface {
             UI.printError(Module.API, "JVM available memory is below %d MB (found %d MB only).\nPlease make sure you launched the program with the -Xmx command line options.", RECOMMENDED_MAX_SIZE, maxMb);
         }
         String compiler = System.getProperty("java.vm.name");
-        if (compiler == null || !(compiler.contains("HotSpot") && compiler.contains("Server"))) {
-            UI.printError(Module.API, "You do not appear to be running Sun's server JVM\nPerformance may suffer");
-        }
+//        if (compiler == null || !(compiler.contains("HotSpot") && compiler.contains("Server"))) {
+//            UI.printError(Module.API, "You do not appear to be running Sun's server JVM\nPerformance may suffer");
+//        }
         UI.printDetailed(Module.API, "Java environment settings:");
         UI.printDetailed(Module.API, "  * Max memory available : %d MB", maxMb);
         UI.printDetailed(Module.API, "  * Virtual machine name : %s", compiler == null ? "<unknown" : compiler);

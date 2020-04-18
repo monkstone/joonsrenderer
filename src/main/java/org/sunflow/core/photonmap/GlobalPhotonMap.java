@@ -22,7 +22,7 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
     private int log2n;
     private int numGather;
     private float gatherRadius;
-    private BoundingBox bounds;
+    private final BoundingBox bounds;
     private boolean hasRadiance;
     private float maxPower;
     private float maxRadius;
@@ -425,7 +425,7 @@ public final class GlobalPhotonMap implements GlobalPhotonMapInterface {
 
         int found;
         float px, py, pz;
-        private int max;
+        private final int max;
         private boolean gotHeap;
         protected float[] dist2;
         protected Photon[] index;
