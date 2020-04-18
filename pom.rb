@@ -18,9 +18,7 @@ project 'joonsrenderer' do
   properties( 'source.directory' => 'src',
   'joonsrenderer.basedir' => '${project.basedir}',
   'polyglot.dump.pom' => 'pom.xml',
-  'maven.compiler.source' => '1.8',
   'project.build.sourceEncoding' => 'utf-8',
-  'maven.compiler.target' => '1.8',
   'janino.version' => '3.1.2',
   'jogl.version' => '2.3.2',
   'processing.version' => '3.3.7'

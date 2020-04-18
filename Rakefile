@@ -33,6 +33,11 @@ task :install do
   sh "mv target/joonsrenderer.jar lib"
 end
 
+desc 'JDeps Tool'
+task :jdeps do
+  system 'mvn jdeps:jdkinternals'
+end
+
 desc 'clean'
 task :clean do
   Dir['./**/*.%w{jar gem}'].each do |path|
