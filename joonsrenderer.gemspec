@@ -14,8 +14,8 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'https://ruby-processing.github.io/joonsrenderer/'
   gem.files         = `git ls-files`.split($/)
   gem.files << 'lib/joonsrenderer.jar'
-  gem.files << 'lib/janino-3.1.2.jar'
-  gem.files << 'lib/commons-compiler-3.1.2.jar'
+  gem.files << 'lib/janino-3.1.3.jar'
+  gem.files << 'lib/commons-compiler-3.1.3.jar'
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']

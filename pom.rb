@@ -19,7 +19,7 @@ project 'joonsrenderer' do
   'joonsrenderer.basedir' => '${project.basedir}',
   'polyglot.dump.pom' => 'pom.xml',
   'project.build.sourceEncoding' => 'utf-8',
-  'janino.version' => '3.1.2',
+  'janino.version' => '3.1.3',
   'jogl.version' => '2.3.2',
   'processing.version' => '3.3.7'
   )
@@ -56,10 +56,12 @@ project 'joonsrenderer' do
            'detectOfflineLinks' => 'false',
            'links' => ['${processing.api}',
                        '${jruby.api}'])
-    plugin(:jar, '3.2.0',
-      'archive' => {
-        'manifestFile' =>  'MANIFEST.MF'
-      })
+                       plugin(:jar, '3.2.0',
+                         'archive' => {
+                           'manifestEntries' => {
+                             'Automatic-Module-Name' => 'joonsrenderer'
+                           }
+                           })
     plugin :jdeps, '3.1.2' do
       execute_goals 'jdkinternals', 'test-jdkinternals'
     end

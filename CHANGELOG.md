@@ -1,3 +1,5 @@
+**v1.3.1** Bump for janino-3.1.3 and processing-4.0
+
 **v1.3.0** Bump for janino-3.1.2, and jdk11
 
 **v1.2.0** Bump for janino-3.0.12, plus some refactoring
